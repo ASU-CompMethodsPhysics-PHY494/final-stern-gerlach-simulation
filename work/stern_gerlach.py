@@ -8,12 +8,11 @@ def dynamics(mass=1, N=1000, alpha=1, gamma=1,
     # We are making a range of values between
     # -1/2 and 1/2 for possible spin values in the z direction
     L_z = np.random.uniform(-1, 1, N)
-    L_x = np.random. np.sqrt(1-L_z**2)
+    L_x = np.random.choice([-1, 1], N) * np.sqrt(1-L_z**2)
 
     #calculate the force in the z direction, see griffiths page 182 for more info
     f_z = gamma * alpha*L_z
-    f_x = (np.random.choice([-1, 1], N) *
-            gamma * alpha*L_x)
+    f_x = gamma * alpha*L_x
 
     #force is constant in the z direction, thus there is a constant acceleration. Calculate using F=ma
     a_z = f_z / mass
