@@ -4,7 +4,7 @@
 ## We first analyze the indepent solution first where
 ## the exponent that depends on time is set to 1.
 
-## We use units where hbar = 1, so that p = k
+## We use units where hbar = 1, so that p = k and m = 1
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -23,7 +23,18 @@ def gaussian(px,py,pz,kx,beta,n):
     
     return g
 
-def spinor_in(gaussian):
+
+def energy(px,py,pz):
+    
+    ## stating the definition of kinetic energy 
+    
+    return .5*(px**(2) + py**(2) + pz**(2))
+
+def time_dependence(t, energy):
+    
+    return np.exp(-t*1j*energy)
+
+def spinor_in(gaussian, time_dependence):
     
     ## Here we are defining the spinor function of the electron 
     ## before it enters the space containing the inhomogeneous magnetic field
@@ -32,7 +43,8 @@ def spinor_in(gaussian):
     ## as the width of the gaussian function's width increases the spinor function's
     ## width decreases and becomes sharply peaked at the center.
     
-    return np.fft.ifft(gaussian)
+    A = gaussian*time_dependence
+    return np.fft.ifft(A)
 
 def psi_in(spinor_in):
     
