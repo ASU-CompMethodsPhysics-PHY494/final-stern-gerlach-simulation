@@ -14,12 +14,12 @@ import matplotlib.pyplot as plt
 ## we first define the gaussian function that depends on momentum from the literature eqn 10.10
 
 
-def gaussian(p,k,beta,n):
+def gaussian(px,py,pz,kx,beta,n):
     
     ## the wave is strongly peaked around k, beta is the Gaussian RMS width, and n
     ## is the dimensions of the gaussian function 
     
-    g = ((2*np.pi) / beta**(2))**(n/2) *np.exp(-(2*beta**(2))**(-1)*(p-k)**(2))
+    g = ((2*np.pi) / beta**(2))**(n/2) *np.exp(-(2*beta**(2))**(-1)*((px-kx)**(2)+py**(2)+pz**(2)))
     
     return g
 
