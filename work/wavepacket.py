@@ -54,7 +54,7 @@ def plot_spinor_in(spinor_in,N, figname="plot_of_spinor_in.pdf" ):
     
     
 
-def plot_gaussian(gaussian, figname="plot_of_gaussian.pdf"):
+def plot_gaussian(p,gaussian, figname="plot_of_gaussian.pdf"):
     """Plot of the gaussian."""
     
     fig = plt.figure()
