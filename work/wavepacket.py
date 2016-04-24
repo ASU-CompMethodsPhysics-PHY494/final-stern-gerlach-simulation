@@ -28,9 +28,24 @@ def spinor_in(gaussian):
     ## Here we are defining the spinor function of the electron 
     ## before it enters the space containing the inhomogeneous magnetic field
     
-    ## inverse fourier transform of the gaussian
+    ## the spinor_in is the inverse fourier transform of the gaussian function
+    ## as the width of the gaussian function's width increases the spinor function's
+    ## width decreases and becomes sharply peaked at the center.
     
     return np.fft.ifft(gaussian)
+
+def psi_in(spinor_in):
+    
+    ## define the spin up spin down coefficients  
+    c_u = 1/2
+    c_d = -1/2
+    
+    ## place the spinor function in the the spin up sin dwon basis 
+    ## to define psi in which is a complex function.
+    
+    return np.array([c_u*spinor_in, c_d*spinor_in])
+    
+    
     
 def plot_spinor_in(spinor_in,N, figname="plot_of_spinor_in.pdf" ):
     
