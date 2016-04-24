@@ -44,7 +44,7 @@ def plot_spinor_in(spinor_in,N, figname="plot_of_spinor_in.pdf" ):
     ax.plot(xs,y)
     
     ax.set_xlabel('position')
-    ax.set_ylabel(r'$\Chi_in')
+    ax.set_ylabel(r'$|\chi_i|^2$')
    
     
 
