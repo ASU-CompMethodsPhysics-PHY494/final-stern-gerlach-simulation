@@ -26,9 +26,10 @@ science: More graphs and images and tables (data) and less text!
 
 ## Other demo materials
 
-You may bring a laptop to show additional animations etc that are not
-easily communicated on static posters but your poster must stand on
-its own without the additional demo materials.
+You may bring a laptop or other device to show additional animations
+or produce sounds that are not easily communicated on static posters
+but your poster must stand on its own without the additional demo
+materials.
 
 ## Poster content
 
