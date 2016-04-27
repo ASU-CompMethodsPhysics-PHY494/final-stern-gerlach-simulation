@@ -49,7 +49,8 @@ repository, run the [update.sh](scripts/update.sh) script:
 * Submit **code and data** through your GitHub repository. Make sure that
   [GitHub properly associates your commits with your GitHub username](https://help.github.com/articles/why-are-my-commits-linked-to-the-wrong-user/). Check
   that the *contributions* are properly accounted
-  for (the **Contributors** statistics under **Graphs**). 
-* Commit your **poster** to the GitHub repo, too.
+  for (the **Contributors** statistics under **Graphs**).
+* Commit your **abstract** as `poster/abstract.txt`
+* Commit your **poster** to the GitHub repo, too, as `poster/poster.pdf` (convert to PDF).
 
 
