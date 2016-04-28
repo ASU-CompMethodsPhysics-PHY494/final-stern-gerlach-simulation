@@ -21,7 +21,7 @@ T = 1000
 
 B0 = .1
 alpha = .3  # Z velocity factor
-m = 45  # Diffusion coefficient
+m = 30  # Diffusion coefficient
 
 Nx = round(1 + (x1 - x0) / dx)
 Nz = round(1 + (z1 - z0) / dz)
@@ -36,7 +36,7 @@ Psi_next = np.zeros((Nz, Nx), dtype=complex)
 
 for i, xi in enumerate(x_range):
     for j, zj in enumerate(z_range):
-        Psi1[j, i] = np.exp(-(xi**2 + zj**2))
+        Psi1[j, i] = np.exp(-(xi**2 + zj**2)*2)
         Psi2[j, i] = Psi1[j, i]
 
 plt.ion()
@@ -46,11 +46,11 @@ cb = plt.colorbar(im)
 for k in range(Nt):
 
     # Solve this Hamiltonian: http://mathurl.com/zwzt59e.png
-    Psi1[1:-1, 1:-1] += 1/(2*m) * (dt * (
+    Psi1[1:-1, 1:-1] += 1j/(2*m) * (dt * (
         (Psi1[2:  , 1:-1] - 2*Psi1[1:-1, 1:-1] + Psi1[ :-2, 1:-1])/dz**2  +
         (Psi1[1:-1, 2:  ] - 2*Psi1[1:-1, 1:-1] + Psi1[1:-1,  :-2])/dx**2)) + \
         -alpha*dt/(2*dz) * (Psi1[:-2, 1:-1] - Psi1[2:, 1:-1])
-    Psi2[1:-1, 1:-1] += 1/(2*m) * (dt * (
+    Psi2[1:-1, 1:-1] += 1j/(2*m) * (dt * (
         (Psi2[2:  , 1:-1] - 2*Psi2[1:-1, 1:-1] + Psi2[ :-2, 1:-1])/dz**2  +
         (Psi2[1:-1, 2:  ] - 2*Psi2[1:-1, 1:-1] + Psi2[1:-1,  :-2])/dx**2)) + \
         alpha*dt/(2*dz) * (Psi2[:-2, 1:-1] - Psi2[2:, 1:-1])
