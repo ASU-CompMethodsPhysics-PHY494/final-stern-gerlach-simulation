@@ -15,12 +15,12 @@ dx = .1
 dz = .1
 dt = .01
 
-x0, x1 = -5, 5
-z0, z1 = -5, 5
+x0, x1 = -10, 10
+z0, z1 = -10, 10
 T = 1000
 
-B0 = .1
-alpha = .3  # Z velocity factor
+B0 = .05
+alpha = .2  # Z velocity factor
 m = 30  # Diffusion coefficient
 
 Nx = round(1 + (x1 - x0) / dx)
@@ -44,16 +44,18 @@ P = Psi1
 im = plt.imshow(P.real, extent=[x0, x1, z0, z1])
 cb = plt.colorbar(im)
 for k in range(Nt):
-
     # Solve this Hamiltonian: http://mathurl.com/zwzt59e.png
-    Psi1[1:-1, 1:-1] += 1j/(2*m) * (dt * (
+    Psi_next[1:-1, 1:-1] = Psi1[1:-1, 1:-1] + 1j/(2*m) * (dt * (
         (Psi1[2:  , 1:-1] - 2*Psi1[1:-1, 1:-1] + Psi1[ :-2, 1:-1])/dz**2  +
         (Psi1[1:-1, 2:  ] - 2*Psi1[1:-1, 1:-1] + Psi1[1:-1,  :-2])/dx**2)) + \
-        -alpha*dt/(2*dz) * (Psi1[:-2, 1:-1] - Psi1[2:, 1:-1])
+        -alpha*dt/(2*dz) * (Psi1[:-2, 1:-1] - Psi1[2:, 1:-1]) + \
+        B0 * dt/(2*dx) * (Psi2[1:-1, :-2] - Psi2[1:-1, 2:])
     Psi2[1:-1, 1:-1] += 1j/(2*m) * (dt * (
         (Psi2[2:  , 1:-1] - 2*Psi2[1:-1, 1:-1] + Psi2[ :-2, 1:-1])/dz**2  +
         (Psi2[1:-1, 2:  ] - 2*Psi2[1:-1, 1:-1] + Psi2[1:-1,  :-2])/dx**2)) + \
-        alpha*dt/(2*dz) * (Psi2[:-2, 1:-1] - Psi2[2:, 1:-1])
+        alpha*dt/(2*dz) * (Psi2[:-2, 1:-1] - Psi2[2:, 1:-1]) - \
+        B0 * dt/(2*dx) * (Psi1[1:-1, :-2] - Psi1[1:-1, 2:])
+    Psi1[:, :] = Psi_next
 
     # Solve matrix equation
     # DOESN'T WORK
@@ -70,3 +72,7 @@ for k in range(Nt):
         # im.autoscale()
         plt.draw()
         plt.pause(.01)
+
+        if k % 100 == 0:
+            P_mag = np.sum(P.real**2 + P.imag**2)
+            print('Psi magnitude: ', P_mag)
