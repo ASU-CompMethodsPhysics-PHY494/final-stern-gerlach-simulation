@@ -13,22 +13,24 @@ m = .01
 
 dx = .1
 dz = .1
-dt = .01
+dt = .02
 
 x0, x1 = -10, 10
 z0, z1 = -10, 10
 T = 1000
 
-B0 = .05
-alpha = .2  # Z velocity factor
-m = 30  # Diffusion coefficient
+B0 = .1
+alpha = .5  # Z velocity factor
+m = 50  # Diffusion coefficient
 
 Nx = round(1 + (x1 - x0) / dx)
 Nz = round(1 + (z1 - z0) / dz)
 Nt = round(1 + T / dt)
 
 x_range = np.linspace(x0, x1, Nx)
+x_sq = 2*np.meshgrid(np.zeros(Nx-2), x_range[1:-1])[1] / (x1-x0)
 z_range = np.linspace(z0, z1, Nz)
+z_sq = 2*np.meshgrid(z_range[1:-1], np.zeros(Nz-2))[0] / (z1-z0)
 
 Psi1 = np.zeros((Nz, Nx), dtype=complex)
 Psi2 = np.zeros((Nz, Nx), dtype=complex)
@@ -48,13 +50,13 @@ for k in range(Nt):
     Psi_next[1:-1, 1:-1] = Psi1[1:-1, 1:-1] + 1j/(2*m) * (dt * (
         (Psi1[2:  , 1:-1] - 2*Psi1[1:-1, 1:-1] + Psi1[ :-2, 1:-1])/dz**2  +
         (Psi1[1:-1, 2:  ] - 2*Psi1[1:-1, 1:-1] + Psi1[1:-1,  :-2])/dx**2)) + \
-        -alpha*dt/(2*dz) * (Psi1[:-2, 1:-1] - Psi1[2:, 1:-1]) + \
-        B0 * dt/(2*dx) * (Psi2[1:-1, :-2] - Psi2[1:-1, 2:])
-    Psi2[1:-1, 1:-1] += 1j/(2*m) * (dt * (
+        -alpha*dt/(2*dz) * (Psi1[:-2, 1:-1] - Psi1[2:, 1:-1]) - \
+        1j * B0 * dt/(2*dx) * (Psi2[1:-1, :-2] - Psi2[1:-1, 2:])
+    Psi2[1:-1, 1:-1] = Psi2[1:-1, 1:-1] + 1j/(2*m) * (dt * (
         (Psi2[2:  , 1:-1] - 2*Psi2[1:-1, 1:-1] + Psi2[ :-2, 1:-1])/dz**2  +
         (Psi2[1:-1, 2:  ] - 2*Psi2[1:-1, 1:-1] + Psi2[1:-1,  :-2])/dx**2)) + \
-        alpha*dt/(2*dz) * (Psi2[:-2, 1:-1] - Psi2[2:, 1:-1]) - \
-        B0 * dt/(2*dx) * (Psi1[1:-1, :-2] - Psi1[1:-1, 2:])
+        alpha*dt/(2*dz) * (Psi2[:-2, 1:-1] - Psi2[2:, 1:-1]) + \
+        1j * B0 * dt/(2*dx) * (Psi1[1:-1, :-2] - Psi1[1:-1, 2:])
     Psi1[:, :] = Psi_next
 
     # Solve matrix equation
@@ -66,8 +68,8 @@ for k in range(Nt):
     # Psi1[:, :] = Psi_next
 
 
-    P = Psi1 + Psi2
-    if k % 10 == 0:
+    if k % 50 == 0:
+        P = Psi1 + Psi2
         im.set_data(np.sqrt(P.real**2 + P.imag**2))
         # im.autoscale()
         plt.draw()
