@@ -6,7 +6,7 @@ m = .01
 
 dx = .1
 dz = .1
-dt = .02
+dt = .01
 
 # Non-physical axis lengths, see below
 x0, x1 = -10, 10
@@ -18,9 +18,9 @@ T = 1000
 # and produce a nicer looking, physically consistent result :)
 FULL_EQ = True
 
-alpha = .2  # Z factor
-B0 = .2     # X factor
-m = 40      # Diffusion coefficient (~1/m)
+alpha = .2
+B0 = .2
+m = 50      # Diffusion coefficient (~1/m)
 
 Nx = round(1 + (x1 - x0) / dx)
 Nz = round(1 + (z1 - z0) / dz)
@@ -36,10 +36,14 @@ z_sq = 2*np.meshgrid(z_range[1:-1], np.zeros(Nz-2))[0] / (z1-z0)
 # the alpha term in the X and Z directions.
 # It is currently set up to have maximum influence at x,z=0
 # and decay to 0 at the boundaries.
-Ax = np.linspace(0, .5, (Nx-1)//2)
-Az = np.linspace(0, 1, (Nz-1)//2)
-x_sq, z_sq = np.meshgrid(np.hstack((Ax, Ax[-2::-1])), np.hstack((Az, Az[-2::-1])))
-# x_sq, z_sq = np.meshgrid(Ax, Az)
+# Ax = np.linspace(0, .5, (Nx-1)//2)
+# Az = np.linspace(0, 1, (Nz-1)//2)
+# x_sq, z_sq = np.meshgrid(np.hstack((Ax, Ax[-2::-1])), np.hstack((Az, Az[-2::-1])))
+x0, x1 = 0, 1
+z0, z1 = .25, 1
+Ax = np.linspace(x0, x1, Nx-2)
+Az = np.linspace(z0, z1, Nz-2)
+x_sq, z_sq = np.meshgrid(Ax, Az)
 
 Psi1 = np.zeros((Nz, Nx), dtype=complex)
 Psi2 = np.zeros((Nz, Nx), dtype=complex)
@@ -53,21 +57,21 @@ for i, xi in enumerate(x_range):
 
 plt.ion()
 P = Psi1
-im = plt.imshow(P.real, extent=[x0, x1, z0, z1])
+im = plt.imshow(P.real, extent=[x0, x1, z0, z1], cmap=plt.get_cmap('binary'))
 cb = plt.colorbar(im)
 for k in range(Nt):
     # Solve this Hamiltonian: http://mathurl.com/zwzt59e.png
     Psi_next[1:-1, 1:-1] = Psi1[1:-1, 1:-1] + 1j/(2*m) * (dt * (
         (Psi1[2:  , 1:-1] - 2*Psi1[1:-1, 1:-1] + Psi1[ :-2, 1:-1])/dz**2  +
         (Psi1[1:-1, 2:  ] - 2*Psi1[1:-1, 1:-1] + Psi1[1:-1,  :-2])/dx**2)) + \
-        -z_sq*alpha*dt/(2*dz) * (Psi1[:-2, 1:-1] - Psi1[2:, 1:-1]) - \
-        1j * (B0 + alpha*x_sq) * dt/(2*dx) * (Psi2[1:-1, :-2] - Psi2[1:-1, 2:]) * FULL_EQ
+        z_sq*(B0 + alpha*z_sq)*dt/(2*dz) * (Psi1[:-2, 1:-1] - Psi1[2:, 1:-1]) + \
+        1j * x_sq*alpha * dt/(2*dx) * (Psi2[1:-1, :-2] - Psi2[1:-1, 2:]) * FULL_EQ
 
     Psi2[1:-1, 1:-1] = Psi2[1:-1, 1:-1] + 1j/(2*m) * (dt * (
         (Psi2[2:  , 1:-1] - 2*Psi2[1:-1, 1:-1] + Psi2[ :-2, 1:-1])/dz**2  +
         (Psi2[1:-1, 2:  ] - 2*Psi2[1:-1, 1:-1] + Psi2[1:-1,  :-2])/dx**2)) + \
-        z_sq*alpha*dt/(2*dz) * (Psi2[:-2, 1:-1] - Psi2[2:, 1:-1]) + \
-        1j * (B0 + alpha*x_sq) * dt/(2*dx) * (Psi1[1:-1, :-2] - Psi1[1:-1, 2:]) * FULL_EQ
+        -z_sq*(B0 + alpha*z_sq)*dt/(2*dz) * (Psi2[:-2, 1:-1] - Psi2[2:, 1:-1]) + \
+        -1j * x_sq*alpha * dt/(2*dx) * (Psi1[1:-1, :-2] - Psi1[1:-1, 2:]) * FULL_EQ
     Psi1[:, :] = Psi_next
 
     # Solve matrix equation
@@ -79,12 +83,15 @@ for k in range(Nt):
     # Psi1[:, :] = Psi_next
 
 
-    if k % 50 == 0:
-        P = Psi1 + Psi2
+    step = 50
+    if k % step == 0:
+        P = Psi1
         im.set_data(np.sqrt(P.real**2 + P.imag**2))
-        # im.autoscale()
+        im.autoscale()
         plt.draw()
         plt.pause(.01)
+        name = (4 - len(str(k//step))) * '0' + '%d.png' % (k//step)
+        plt.savefig('figures/%s' % name)
 
         if k % 100 == 0:
             P_mag = np.sum(P.real**2 + P.imag**2)
