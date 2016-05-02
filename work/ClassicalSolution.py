@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def dynamics(mass=1, N=1000, alpha=1, gamma=1,
-             vy=100, vx=20, B_end=10, Y_end = 40):
+             vy=100, vx=20, B_end=10, Y_end = 40,vz = 20):
     # We are making a range of values between
     # -1/2 and 1/2 for possible spin values in the z direction
     # Classical mechanics says nothing against the idea of spin having to be between
@@ -34,17 +34,19 @@ def dynamics(mass=1, N=1000, alpha=1, gamma=1,
     # F = 0 in the y direction, thus we can calculate the
     # time it takes for the atom to go from the beginning of the
     # magnetic field to the end
-    v0x = np.random.uniform(-.02, vx+.02, N)
+    v0x = np.random.uniform(vx-.02, vx+.02, N)
     v0y = np.random.uniform(vy,   vy+2,   N)
-    v0z = np.random.uniform(-.02, vx+.02, N)
-
+    v0z = np.random.uniform(vz-.02, vz+.02, N)
+    
     #time to leave the field
+    tbf = .19
     t = B_end / v0y
-
+    x_xi = v0x*tbf
+    x_zi = v0z * tbf
     # Calculate the z,x position as the atom leaves the magnetic field
     # lf = leaving field
-    z_lf =     v0z*t + .5 * a_z * t**2
-    x_lf = v0x*t + .5 * a_x * t**2
+    z_lf = x_zi + v0z*t + .5 * a_z * t**2
+    x_lf = x_xi + v0x*t + .5 * a_x * t**2
 
 
     # The magnetic field last 20 units, lets make the screen 10 more units away
@@ -67,10 +69,11 @@ def dynamics(mass=1, N=1000, alpha=1, gamma=1,
 if __name__ == '__main__':
     parameters = {
         'mass':  1,     #Mass of atom (kg)
-        'N':     20000, #Number of atom
+        'N':     5000, #Number of atom
         'alpha': 1,     #Small deviation from homogeneity
         'gamma': 1,     #Gyromagnetic constant
-        'vy':    100,   #Velocity in the y-direction (m/s)
+        'vy':    100, #Velocity in the y-direction (m/s)
+        'vz':    0,  #velocity in the z direction
         'vx':    0,     #Velocity in the x-direction in (m/s)
         'B_end': 20,    #y distance particle will travel
         'Y_end': 30,    #The screen location after the field
@@ -79,4 +82,8 @@ if __name__ == '__main__':
     z, x = dynamics(**parameters)
 
     plt.scatter(x ,z)
+    plt.xlabel('Unit Length')
+    plt.ylabel('Unit Length')
+    plt.title('Stern-Gerlach Classical Solution for 5000 Silver Atoms' )
+    plt.savefig('Classical.png')
     plt.show()
