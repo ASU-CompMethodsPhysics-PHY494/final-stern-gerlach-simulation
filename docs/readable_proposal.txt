@@ -1,0 +1,20 @@
+Title: Stern-Gerlach Experiment Simulation 
+Researchers: Andrew Durkiewicz, Nate Simon, Greg Vetaw
+
+
+In 1922 Otto Stern and Walther Gerlach performed a revolutionary experiment that would confirm the quantization of the electron spin. The experiment was a big accomplishment for quantum mechanics, as it confirmed the quantization of spin angular momentum in the form of ±1/2. This result is purely quantum mechanical, and does not compute with the classical physics. While the result of this experiment is well documented and no longer being contested, we would like to create computer simulations to better understand how a semi-classical result play out. The original experiment consisted of passing silver atoms, as silver has an unpaired 5s electron, through an inhomogeneous magnetic field. The electron has an electron spin magnetic moment, which wants to align itself with this magnetic field producing a torque. Apart from the torque, there is also a force on a magnetic dipole. Introducing the atom into an inhomogeneous magnetic field will produce a split depending on the sign of the spin. For the semi-classical model, the electron spin will be unrestricted between values of ±1. This contradicts the quantum mechanical approach which restricts the spin to a specific set of values. We hope to simulate this effect through wave-packets propagation through a potential created by the magnetic field. This will be achieved by solving the Time Dependent Schrodinger Equation. 
+
+
+
+
+Resource: "Introduction to Quantum Mechanics", Prentice Hall, 1995. By: David Griffiths 
+
+Approach:
+In the semi-classical approach, we will use kinematics as the magnetic field produces a constant force and thus acceleration. For the wave packet propagation, we will solve the time-dependent Waiting on input to finish this part. 
+
+
+
+
+Objectives 
+CURRENTLY REDOING THIS PART
+
