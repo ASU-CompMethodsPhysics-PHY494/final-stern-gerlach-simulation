@@ -10,3 +10,10 @@ Greg Vetaw
 Nate Simon
 - Core quantum simulation implementation with finite difference.
 - Code refactor for classical simulation
+
+Andrew Durkiewicz
+- Wrote the core-code for the semi-classical simulation. 
+- Responsible for writing the results section.
+- Responsible for writing the Proposal.
+- Final Printing
+- Contributed in finding articles and sources that helped solve wave function in the 	quantum mechanical simulation.
