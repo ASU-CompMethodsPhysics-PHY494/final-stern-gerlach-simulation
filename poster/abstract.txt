@@ -3,5 +3,15 @@
     Code is available at https://github.com/ASU-CompMethodsPhysics-PHY494/final-stern-gerlach-simulation.git under the CC0 license
 
 Abstract 
-In 1922 Otto Stern and Walther Gerlach confirmed that microscopic particles have a quantized intrinsic degree of freedom called spin angular momentum when they sent a beam of sliver atoms through an inhomogeneous magnetic field.  Since silver atoms have an extra electron in the 5s orbital, the result showed that the spin of the electron is ±ℏ/2. Thus, for this project we sought out to simulate the Stern-Gerlach experiment by using the finite difference method with a Gaussian wavepacket implemented in Python. We also wished to reconstruct the results of the experiment in the classical limit where the states of the electron were assumed to be a continuous band symmetric about the axis where the beam splits. The major hurtle that was encountered was trying to get the states to split and discretize in a manner that made sense for both the classical limit and the quantum limit. The results that were obtained in the semi-classical limit showed that when electrons exit the magnetic field they can populate any state that is symmetric about their initial axis of motion between ±ℏ. The quantum result showed an interference distribution that was heavily peaked about the initial axis of motion which differed from the classical result. For future work we are anticipating simulating the experiment by using the Crank-Nicolson method. 
+
+In 1922 Otto Stern and Walther Gerlach confirmed that microscopic particles have a quantized intrinsic degree of freedom called spin 
+angular momentum when they sent a beam of sliver atoms through an inhomogeneous magnetic field.  Since silver atoms have an extra electron 
+in the 5s orbital, the result showed that the spin of the electron is ±ℏ/2. Thus, for this project we sought out to simulate the 
+Stern-Gerlach experiment by using the finite difference method with a Gaussian wavepacket implemented in Python. We also wished to 
+reconstruct the results of the experiment in the classical limit where the states of the electron were assumed to be a continuous band 
+symmetric about the axis where the beam splits. The major hurtle that was encountered was trying to get the states to split and discretize 
+in a manner that made sense for both the classical limit and the quantum limit. The results that were obtained in the semi-classical limit 
+showed that when electrons exit the magnetic field they can populate any state that is symmetric about their initial axis of motion between 
+±ℏ. The quantum result showed an interference distribution that was heavily peaked about the initial axis of motion which differed from the 
+classical result. For future work we are anticipating simulating the experiment by using the Crank-Nicolson method. 
 
