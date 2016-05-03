@@ -10,11 +10,13 @@ In 1922 Otto Stern and Walther Gerlach performed a revolutionary experiment that
 Resource: "Introduction to Quantum Mechanics", Prentice Hall, 1995. By: David Griffiths 
 
 Approach:
-In the semi-classical approach, we will use kinematics as the magnetic field produces a constant force and thus acceleration. For the wave packet propagation, we will solve the time-dependent Waiting on input to finish this part. 
-
+In the semi-classical approach, we will use kinematics as the magnetic field produces a constant force and thus acceleration. For the wave packet propagation, we will solve the Time-Dependent Schrodinger Equation. The magnetic field creates a potential step function that is a constant perturbed potential beginning at time t=0 and lasts until some later time t=T. Using a gaussian wave packet along with the finite difference method, we are able to update the gaussian wave packets position with respect to time. We will use the python package, matplotlib.pyplot, to plot the wave function probability density as time progresses. 
 
 
 
 Objectives 
-CURRENTLY REDOING THIS PART
+Some of the objectives included for the semi-classical portion include creating a more realistic scenario by varying the initial velocities in all directions. The reason that this is important is because the original experiment included an oven that could not produce a perfect beam of Silver atoms. We want our results to change every time we ran the script. We want to plot the atoms as scatter plot, where each dot is where an individual atom hit the screen. For the quantum portion, we hope to model the wave packet as a movie. One with a dampening term and one without. 
+
+Results
+Following the experiment we found our results matched the expected result for the semi-classical model. The screen showed a pattern that was oval in nature and the density of atoms increased toward the edges of the oval. For the Quantum mechanical portion we were able to turn our data into a movie, which demonstrated the split that identifies with he quantized spin splitting. 
 
