@@ -1,0 +1,8 @@
+
+
+Greg Vetaw
+-Helped start the semi-classical simulation.
+	Made suggestions on how to make a randomized array between ±ℏ and helped with debugging the simulation. 
+-Started the quantum simulation by defining the Gaussian function and helped with debugging and interpreting the results. 
+- Created introduction and conclusion and wrote the theory and method for poster. 
+- wrote the abstract. 
