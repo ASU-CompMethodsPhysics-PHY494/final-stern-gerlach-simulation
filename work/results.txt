@@ -1,4 +1,14 @@
 Results
-For the semi-classical simulation, 5000 silver atoms were given an initialized velocity with random variance in their Cartesian velocity reference frame. Each atom was given a unique randomized Sx and Sy spin value between the values of -1 and +1, such that the Sz could be calculated from the values of Sx and Sy. This was done to maintain that the spin vector maintained a value of 1 for each atom (Sx2+ Sy2 +Sz2=1). The atoms were under a constant force, and thus we calculated their positions as time evolved using Newtonian mechanics. The point of this simulation was to explore how the results would play out for the Stern-Gerlach experiment, had a classically allowed spin-angular momentum been possible. For this simulation specifically, we were interested in the relationships between the magnetic field and the force that it caused on the atoms themselves, choosing to neglect specific units of length. For that case, it the specific units were chosen to be ignored as they would only scale the relationships that our data demonstrated (note figure 1). 
+For the semi-classical simulation, 5000 silver atoms were given an initialized velocity with 
+random variance in their Cartesian velocity reference frame. Each atom was given a unique 
+randomized Sx and Sy spin value between the values of -1 and +1, such that the Sz could be calculated 
+from the values of Sx and Sy. This was done to maintain that the spin vector maintained a value of 1 
+for each atom (Sx2+ Sy2 +Sz2=1). The atoms were under a constant force, and thus we calculated their 
+positions as time evolved using Newtonian mechanics. The point of this simulation was to explore how 
+the results would play out for the Stern-Gerlach experiment, had a classically allowed spin-angular 
+momentum been possible. For this simulation specifically, we were interested in the relationships 
+between the magnetic field and the force that it caused on the atoms themselves, choosing to neglect 
+specific units of length. For that case, it the specific units were chosen to be ignored as they would 
+only scale the relationships that our data demonstrated (note figure 1). 
 
 
