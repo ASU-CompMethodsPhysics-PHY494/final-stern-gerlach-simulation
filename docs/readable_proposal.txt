@@ -14,6 +14,7 @@ In the semi-classical approach, we will use kinematics as the magnetic field pro
 
 
 
+
 Objectives 
 Some of the objectives included for the semi-classical portion include creating a more realistic scenario by varying the initial velocities in all directions. The reason that this is important is because the original experiment included an oven that could not produce a perfect beam of Silver atoms. We want our results to change every time we run the script. We want to plot the atoms as scatter plot, where each dot is where an individual atom hit the screen. For the quantum portion, we hope to model the wave packet as a movie. One with a dampening term and one without. 
 
